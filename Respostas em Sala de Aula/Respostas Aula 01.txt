@@ -1,0 +1,26 @@
+O que são sistemas embarcados?
+
+Sistemas embarcados são sistemas "invisíveis". São a alma do hardware. Diz-se sistemas embarcados por estarem "dentro", "a bordo" do hardware. É o responsável pela integração de todas as funções. Uma boa definição é que sistemas embarcados são como sistemas operacionais dedicados, projetados para uma tarefa ou aplicação específica.
+
+O que são sistemas microprocessados?
+
+São sistemas processados por dispositivos em escala microscópica. Um sistema embarcado é um sistema microprocessado, mas nem todo sistema microprocessado é um sistema embarcado. Um computador pessoal, por exemplo, possui um sistema microprocessado, o sistema operacional, que controla todo o dispositivo.
+
+Apresente aplicações de sistemas embarcados
+	
+Indústria automotiva: sistema de airbag, ar-condicionado, abs, direção elétrica, central multimídia.
+
+Eletrodomésticos: Geladeiras, Micro-ondas, Máquinas de Lavar, Aspirador de pó, Cafeteiras.
+
+Automação industrial: Robótica industrial, Acionamentos elétricos, Controlador Lógico Programável, Sistema de Controle Digital Distribuído.
+
+Cite arquiteturas possíveis e as diferenças entre elas.
+
+Sistemas embarcados utilizam amplamente as arquiteturas ARM, PowerPC, PIC, AVR, 8051, Coldfire, TMS320 e Blackfin.
+
+Por quê usamos o MSP430 na disciplina, ao invés de outro microcontrolador?
+
+Os controladores  MSP430 são mais baratos que a grande maioria dos controladores ATMega utilizados no Arduino. 
+Não é necessário um cristal externo, porque os controladores MSP430 podem rodar até 16 Mhz a partir da sua fonte interna de clock. 
+Com o MSP430, a Texas Instruments oferece uma placa de desenvolvimento que inclui tudo que é necessário por quase um quarto do custo de uma placa de Arduino.
+
