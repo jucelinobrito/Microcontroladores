@@ -1,0 +1,105 @@
+Data: 15/03/2017
+
+Q1. Quais as diferenças entre os barramentos de dados e de endereços?
+
+	O barramento de dados transmite dados entre as unidades. Também chamado de barramento de memória
+	diz a quantidade de dados que podem ser transmitidos entre as unidades ao mesmo tempo. Um processador
+	de 32 bits necessitaria duas transmissões para um dado de tamanho igual a 64 bits. Reflete basicamente
+	a velocidade na transmissão de informação.
+
+	O barramento de endereços diz a quantidade de endereços de memória que podem ser acessados. Basicamente 
+	reflete o tamanho da memória disponível. Usualmente pode ser maior que o barramento de dados.
+
+Q2. Quais são as diferenças entre as memórias RAM e ROM?
+
+	Memória RAM é uma memória de acesso aleatório, o que significa que não é necessário uma ordem de acesso.
+	Além disso ela é volátil, perdendo seu conteúdo todas as vezes que a energia fornecida acaba.
+
+	Memória ROM é uma memória dita somente leitura, mas que não impede que seja escrita, mas nesse caso
+	a escrita é bem mais lenta quando comparada com a memória RAM, não volátil: as informações armazenadas
+	permanecem mesmo após cessada o fornecimento de energia. Um exemplo de arquivo gravado na memória ROM
+	de um PC é a BIOS do sistema.
+
+Q3. Considere o código abaixo, de 12 linhas:
+
+    1.   #include <stdio.h>
+    2.   int main(void)
+    3.   {
+    4.      int i;
+    5.      printf("Insira um número inteiro: ");
+    6.      scanf("%d", &i);
+    7.      if(i%2)
+    8.         printf("%d eh impar.\n");
+    9.      else
+   10.         printf("%d eh par.\n");
+   11.      return 0;
+   12.   }
+
+Para este código, responda:
+	(a) A variável 'i' é armazenada na memória RAM ou ROM? Por quê?
+
+		A variável "i" é armazenada na memória RAM. Assim, os dados e os programas armazenados nesses dispositivos, que serão utilizados pelo processador, 
+		são carregados primeiramente na RAM antes do processamento. Desse modo, evita-se que o processador realize, em todo instante, 
+		a leitura ou escrita em dispositivos de acessos mais lentos.	
+
+	(b) O programa compilado a partir deste código é armazenado na memória RAM ou ROM? Por quê?
+
+		Da mesma forma como o item anterior. Trata-se de um armazenamento na memória RAM.  Pois é uma memória utilizada pelo processador como um meio rápido
+		e temporário para a contenção de informações durante a execução em um determinado momento.
+
+Q4. Quais são as diferenças, vantagens e desvantagens das arquiteturas Harvard e Von Neumann?
+
+	Arquitetura Harvard - 
+	
+	Mais propenso a fomentar paralelismo, mais caro, mais complexo – dados e
+	programas separados permitem que ambos sejam facilmente tratados em paralelo.
+	Harvard permite duas leituras de memória simultâneas (dado e instrução).
+	A maioria dos processadores DSP (celulares, telecom, câmeras digitais,…) usam
+	organização Harvard, pois isto permite maior largura de banda de memória e tempo
+	acesso a dados mais previsível. 
+
+	Arquitetura Von-Neumann -
+	
+	No modelo de computador proposto por von Neumann as instruções e os dados ficam juntos
+	na memória. O processador busca na memória e executa uma instrução de cada vez.
+	Portanto, as transferências entre a memória e o processador são feitas passo a passo.
+	Dados e programas compartilham um meio de armazenamento único.
+	Mais simples, menos restritivo, menos eficiente – dados e programas misturados
+	permitem ao programador intercambiar a semântica de dados e programas ao longo
+	do tempo
+
+Q5. Considere a variável inteira 'i', armazenando o valor 0x8051ABCD. Se 'i' é armazenada na memória a partir do endereço 0x0200, como ficam este byte e os seguintes, considerando que a memória é:
+	(a) Little-endian?
+
+		Palavra de 32 bits -> 4 bytes	
+		
+		0x0200 -> CD
+		0x0201 -> AB
+		0x0202 -> 51
+		0x0203 -> 80
+
+
+	(b) Big-endian?
+
+		Palavra de 32 bits -> 4 bytes	
+		
+		0x0200 -> 80
+		0x0201 -> 51
+		0x0202 -> AB
+		0x0203 -> CD
+
+Q6. Sabendo que o processador do MSP430 tem registradores de 16 bits, como ele soma duas variáveis de 32 bits?
+
+	
+	R[4] = 0x1234
+	R[5] = 0x5678
+	R[6] = 0x8765
+	R[7] = 0x4321
+
+	Soma-se primeiramente os Registradores que guardaram a última parte da informação
+
+	R[8] = R[5] + R[7]
+	
+	R[9] = R[4] + R[6]
+
+	

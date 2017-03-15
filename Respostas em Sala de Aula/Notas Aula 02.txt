@@ -1,0 +1,71 @@
+Microntrolador tem algumas coisas extras além do chip microprocessador
+
+Componentes básicos microcontrolador:
+	-memória de programa (ROM) - Somente Leitura./ Não-volátil./ Escrita bem mais lenta.
+	-memória de dados (RAM) - Volátil: Perde o conteúdo quando acaba a energia./ Acesso aleatório: Não é necessário uma ordem de acesso.
+	-barramento de dados
+	-barramento de endereços
+	-portas in/out
+	-CPU (unidade central de processamento)
+	-clock
+
+
+	
+	198	200	202	204	206  -> Endereço
+
+	200	 2 	 10	 50 	  1  -> Informação Armazenada
+
+	 a	a[0]	a[1]	a[2]	a[3] 
+
+
+
+a[3] = 1 : Vai até o endereço de a (200) e ande três casas e armazene o número um.
+
+O "a" sozinho indica  a posição (enderço) onde começa o vetor "a".
+
+
+Barramento de endereços é diferente do barramento de dados, não precisam ser iguais. Barramento de endereços geralmente tem mais bits que 
+o barramento e dados. Barramento de dados comuns (8, 16, 32 ou 64 bits).
+
+1. O Barramento de Dados (Data Bus) transmite dados entre as unidades. Portanto, um microprocessador de 8 bits requer um barramento de dados de 8 linhas para transmitir dados de 8 bits em paralelo. Semelhantemente, um microprocessador de 64 bits necessita de um barramento de dados de 64 linhas para transmitir dados de 64 bits em paralelo. Se o barramento de dados para um microprocessador de 64 bits fosse formado por 8 linhas, seriam necessárias oito transmissões sucessivas, tornando mais lento o sistema. O Barramento de Dados é bi-direcional, isto é, pode transmitir em ambas as direções.
+2. O Barramento de Endereço (Address Bus) é usado para selecionar a origem ou destino de sinais transmitidos num dos outros barramentos ou numa de suas linhas. Ele conduz endereços. Uma função típica do Barramento de Endereço é selecionar um registrador num dos dispositivos do sistema que é usado como a fonte ou o destino do dado. O Barramento de Endereço do nosso computador padrão tem 16 linhas e pode endereçar 216 (64 K) dispositivos (1K= 1024, ou 210 , no jargão de computação).
+3. O Barramento de Controle (Control Bus) sincroniza as atividades do sistema. Ele conduz o status e a informação de controle de/para o Microprocessador. Para um Barramento de Controle ser formado, ao menos 10 (geralmente são mais) linhas de controle são necessárias.
+
+Arquitetura harvard - 
+
+Mais propenso a fomentar paralelismo, mais caro, mais complexo – dados e
+programas separados permitem que ambos sejam facilmente tratados em paralelo.
+Harvard permite duas leituras de memória simultâneas (dado e instrução).
+A maioria dos processadores DSP (celulares, telecom, câmeras digitais,…) usam
+organização Harvard, pois isto permite maior largura de banda de memória e tempo
+de acesso a dados mais previsível. 
+
+Arquitetura Von-neumann - mais rapido -> Memoria RAM e ROM utilizam o mesmo barramento de dados e endereço
+
+No modelo de computador proposto por von Neumann as instruções e os dados ficam juntos
+na memória. O processador busca na memória e executa uma instrução de cada vez.
+Portanto, as transferências entre a memória e o processador são feitas passo a passo.
+Dados e programas compartilham um meio de armazenamento único.
+Mais simples, menos restritivo, menos eficiente – dados e programas misturados
+permitem ao programador intercambiar a semântica de dados e programas ao longo
+do tempo
+
+
+Encapsulamento - Formato do chip
+
+
+1 Byte = 8 Bits
+
+Uma palavra de 64 símbolos precisa de 16 bits ou 2 Bytes.
+
+O endereço da palavra de 2 bytes é dado pelo byte no endereço menor (sempre par), 
+e esta palavra pode ser lida em um ciclo de clock do barramento.
+
+Exemplo: A palavra 0x1234 é armazenada da seguinte forma no endereço 0x0200
+
+	0x34 em 0x0200
+	0x12 em 0x0201
+Endereços de memória do msp430 (barramento de endereços 16 bits) : 0x0000 -> 0xFFFF
+Barramento de memória (dados) é de 16 bits (transfere bytes ou palavras de 2 bytes)
+
+Msp430 possui 16 Registradores de 16 bits.
