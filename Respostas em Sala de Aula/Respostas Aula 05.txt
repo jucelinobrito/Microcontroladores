@@ -1,0 +1,134 @@
+if(i == j) f = g + h; else f = g - h
+
+	cmp R7,R8     ;R7 = i, R8 = j
+	jne ELSE      ;jump if not equal
+	mov.w R5,R4   ;R4 = f, R5 = g 
+	add.w R6,R4   ;f = g + h (R4 = R5 + R6)
+	jmp EXIT      ;jump incondicional
+
+ELSE:
+	mov.w R5,R4   ;R4 = f, R5 = g
+	sub.w R6,R4   ; f = g - h (R4 = R5 - R6)
+Exit:
+
+...
+
+Data: 29/03/2017
+
+Para as questões 2 a 5, considere que as variáveis 'f', 'g', 'h', 'i' e 'j' são do tipo inteiro (16 bits na arquitetura do MSP430), e que o vetor 'A[]' é do tipo inteiro. Estas variáveis estão armazenadas nos seguintes registradores:
+	f: R4
+	g: R5
+	h: R6
+	i: R7
+	j: R8
+	k: R9
+Utilize os registradores R11, R12, R13, R14 e R15 para armazenar valores temporários.
+
+1. Escreva os trechos de código assembly do MSP430 para:
+	(a) Somente setar o bit menos significativo de R5.
+
+	mov.w #1,R11  ; R11 = 0000 0000 0000 0001
+	bis.w R11,R5  ; R5 = R11 or R5
+
+	(b) Somente setar dois bits de R6: o menos significativo e o segundo menos significativo.
+
+	mov.w #3,R11  ; R11 = 0000 0000 0000 0011
+	bis.w R11,R6  ; R6 = R11 or R6
+
+	(c) Somente zerar o terceiro bit menos significativo de R7.
+
+	AND:
+		mov.w #0FFBh,R11  ; R11 = 1111 1111 1111 1011
+		and.w R11,R7      ; R7 = R11 and R7
+
+	BIC:
+		mov.w #4,R11      ; R11 = 0000 0000 0000 0100
+		bic.w R11,R7      ; R7 = R7 and ~(R11)
+
+	(d) Somente zerar o terceiro e o quarto bits menos significativo de R8.
+
+	mov.w #12,R11  ; R11 = 0000 0000 0000 1100
+	bic.w R11,R8   ; R8 = R8 and ~(R11)
+
+	(e) Somente inverter o bit mais significativo de R9.
+
+	mov.w #8000h,R11  ; R11 = 1000 0000 0000 0000
+	xor.w R11,R9      ; R9 = R11 xor R9
+
+	(f) Inverter o nibble mais significativo de R10, e setar o nibble menos significativo de R10.
+
+	mov.w #F000h,R11  ; R11 = 1111 0000 0000 0000
+	mov.w #000Fh,R12  ; R12 = 0000 0000 0000 1111
+	xor.w R11,R10     ; R10 = R11 xor R10
+	bis.w R12,R10     ; R10 = R12 or R10
+ 
+2. "Traduza" o seguinte trecho de código em C para o assembly do MSP430:
+
+	if(i>j) f = g+h+10;
+	else f = g-h-10;
+
+	INICIO:
+		cmp R7,R8     ; i = R7, j = R8, 
+		jl MAIN       ; se R8<R7 (R7>R8), pula para MAIN
+		mov.w #-10,R11 ; R11 = -10
+		sub.w R6,R11   ; R11 = -10 - R6(h)
+		mov.w R5,R12   ; R12 = R5(g)
+		sub.w R11,R12  ; R12 = R12 - R11 = R5(g) - R6(h) - 10
+		mov.w R12,R4   ; R4(f) = R12
+	MAIN:
+ 		mov.w #10,R11  ; R11 = 10
+		add.w R6,R11   ; R11 = 10 + R6(h)
+		add.w R5,R11   ; R11 = 10 + R6 + R5(g)
+		mov.w R11,R4   ; R4(f) = R11
+	EXIT:	
+		
+
+
+3. "Traduza" o seguinte trecho de código em C para o assembly do MSP430:
+
+	while(save[i]!=k) i++;
+
+	INICIO:
+		mov.w R7,R11  ; R7 = i, R12 = temporário
+		rla R11       ; R11 = 2*i -> Na memória se anda de 2 em 2 bytes
+		add.w R10,R11 ; R10 = save, R12 = save + 2*i = &save[i]
+		cmp 0(R11),R9 ; compara save[i] com k (R9)
+		jeq EXIT
+		inc.w R7      ; i += 1
+		jmp INICIO
+	EXIT: 
+		
+	
+
+
+4. "Traduza" o seguinte trecho de código em C para o assembly do MSP430:
+
+	for(i=0; i<100; i++) A[i] = i*2;
+
+		clr.w R7         ; Faz i = R7 = 0
+		mov.w #100,R12	 ; Faz R12 = 100d 
+ 
+	INICIO:
+		mov.w R7,R15     ; Move i para A = R15
+		rla R7           ;  i*2
+		mov.w R7,0(R15)  ; A[i] = i*2
+		inc.w R7         ; i += 1
+		cmp R12,R7       ; 
+		jl INICIO        ; se i < 100 pula para inicio
+	EXIT:	
+
+
+5. "Traduza" o seguinte trecho de código em C para o assembly do MSP430:
+
+	for(i=99; i>=0; i--) A[i] = i*2;
+	
+		mov.w #99,R7      ; i = 99
+		mov.w #0,R12      ; R12 = 0
+	INICIO:
+		mov.w R7,R15     ; Move i para A = R15
+		rla R7           ;  i*2
+		mov.w R7,0(R15)  ; A[i] = i*2
+		dec.w R7         ; i -= 1
+		cmp R12,R7       ; 
+		jge INICIO       ; se i >= 0 pula para inicio
+	EXIT:
