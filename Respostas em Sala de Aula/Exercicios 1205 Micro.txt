@@ -1,0 +1,19 @@
+1. Defina a função void Atraso(volatile unsigned int x); que fornece um atraso de 'x' milissegundos. Utilize o Timer_A para a contagem de tempo, e assuma que o SMCLK já foi configurado para funcionar a 1 MHz. Esta função poderá ser utilizada diretamente nas outras questões desta prova.
+
+
+	//Para gerar um atraso de 'x' ms pode-se programas o timerA de forma que 'x' ms seja o tempo 
+	//que ele leva para zerar a contagem, ou seja, ativar a flag TAIFG
+
+	void Atraso(volatile unsigned int x)
+	{	
+		int y;
+		
+		y = x/0,001;
+
+		if(y > 65536)
+			y = 65536;
+		
+		TA0CCR0 = y-1;                   // A contagem vai até 9999 e quando chegar em 10000 ela zera
+		TA0CTL = TASSEL_2 + ID_0 + MC_1;      // TASSEL_2: Seleciona o clk; ID_0: Divide o clk por 1; MC_1: Habilita a contagem até o valor defindo em TA0CCR0
+			
+	}
